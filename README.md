@@ -24,7 +24,9 @@
 
 ### 프로젝트 진행상황
 1. 참고자료 토대로 모델 학습(이미지 전처리) 진행 중
-2. 역할 분담 후 분야(프론트엔드, 백엔드, 모델인식) 사용 툴 설정
+<img width="973" alt="ㅁㅗㄷㅔㄹㅅㅐㅇㅅㅓㅇ" src="https://github.com/JiminGod/WirelessNetwork/assets/129360388/5191915b-b4bf-4864-9045-5725281af161">
+<img width="968" alt="ㅇㅣㅁㅣㅈㅣㅈㅓㄴㅊㅓㄹㅣ" src="https://github.com/JiminGod/WirelessNetwork/assets/129360388/fafd1f80-a386-401e-bc12-4d990cf91b9e">
+<img width="971" alt="얼굴확인" src="https://github.com/JiminGod/WirelessNetwork/assets/129360388/40f0bc1a-003f-4b36-97d8-911dc297fd03">
 
 ## 참고자료
 https://yunwoong.tistory.com/92
