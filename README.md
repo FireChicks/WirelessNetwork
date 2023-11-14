@@ -13,7 +13,7 @@
 ## 구조
 1. 라즈베리 파이 + 카메라 센서
 2. 얼굴인식 모델 (PyCharm 사용)
-3. 사진 데이터베이스 저장 및 모델과 비교
+3. 사진 데이터베이스 저장 및 모델과 비교, 출석 체크
 4. 출결관리 UI
 
 ## 주요기능
@@ -29,5 +29,5 @@
 <img width="971" alt="얼굴확인" src="https://github.com/JiminGod/WirelessNetwork/assets/129360388/40f0bc1a-003f-4b36-97d8-911dc297fd03">
 
 ## 참고자료
-https://yunwoong.tistory.com/92
-https://wondangcom.tistory.com/2446
+- https://yunwoong.tistory.com/92
+- https://wondangcom.tistory.com/2446
