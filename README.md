@@ -28,6 +28,9 @@
 <img width="968" alt="ㅇㅣㅁㅣㅈㅣㅈㅓㄴㅊㅓㄹㅣ" src="https://github.com/JiminGod/WirelessNetwork/assets/129360388/fafd1f80-a386-401e-bc12-4d990cf91b9e">
 <img width="971" alt="얼굴확인" src="https://github.com/JiminGod/WirelessNetwork/assets/129360388/40f0bc1a-003f-4b36-97d8-911dc297fd03">
 
+![KakaoTalk_Photo_2023-11-14-10-22-20](https://github.com/JiminGod/WirelessNetwork/assets/129360388/b8fc3480-dd85-4e14-bd0d-f70552b1e473)
+
+
 ## 참고자료
 - https://yunwoong.tistory.com/92
 - https://wondangcom.tistory.com/2446
