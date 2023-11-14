@@ -24,11 +24,6 @@
 
 ### 프로젝트 진행상황
 1. 참고자료 토대로 모델 학습(이미지 전처리) 진행 중
-<img width="973" alt="ㅁㅗㄷㅔㄹㅅㅐㅇㅅㅓㅇ" src="https://github.com/JiminGod/WirelessNetwork/assets/129360388/5191915b-b4bf-4864-9045-5725281af161">
-<img width="968" alt="ㅇㅣㅁㅣㅈㅣㅈㅓㄴㅊㅓㄹㅣ" src="https://github.com/JiminGod/WirelessNetwork/assets/129360388/fafd1f80-a386-401e-bc12-4d990cf91b9e">
-<img width="971" alt="얼굴확인" src="https://github.com/JiminGod/WirelessNetwork/assets/129360388/40f0bc1a-003f-4b36-97d8-911dc297fd03">
-
-![KakaoTalk_Photo_2023-11-14-10-22-20](https://github.com/JiminGod/WirelessNetwork/assets/129360388/b8fc3480-dd85-4e14-bd0d-f70552b1e473)
 
 
 ## 참고자료
