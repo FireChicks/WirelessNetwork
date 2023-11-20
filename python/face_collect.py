@@ -16,7 +16,7 @@ minH = 200
 face_id = input('\n enter user id end press <return> ==> ')
 print("\n [INFO] Initializing face capture. Look the camera and wait ...")
 
-folder_path = 'face_data'
+face_data_path = 'face_data'
 count = 0 # # of caputre face images
 
 user_face_folder = 'user_face' #사용자 얼굴 
@@ -37,6 +37,7 @@ while True:
 
     #얼굴에 대해 rectangle 출력
     for (x, y, w, h) in faces:
+#        cv2.rectangle(frame, (x, y), (x + w, y + h), (255, 0, 0, 0), -1)
         count += 1
 
         if count == 1:
@@ -44,7 +45,7 @@ while True:
             resized_face_user = cv2.resize(frame[y-100:y + h+150, x-100:x + w+100], (400, 400))
             cv2.imwrite(user_face_path, resized_face_user)
         
-        file_path = os.path.join(folder_path, f"{face_id}.{count}.jpg")
+        file_path = os.path.join(face_data_path, f"{face_id}.{count}.jpg")
         cv2.imwrite(file_path, gray[y:y + h, x:x + w])
 
     cv2.imshow('image', frame)
@@ -57,3 +58,4 @@ print("\n [INFO] Exiting Program and cleanup stuff")
 
 camera.release() 
 cv2.destroyAllWindows()
+
