@@ -58,3 +58,4 @@
 
 
 faceCascade = cv2.CascadeClassifier('/home/user/opencv/data/haarcascades_cuda/haarcascades_frontalface_default.xml')
+detector
