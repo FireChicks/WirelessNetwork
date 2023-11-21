@@ -55,3 +55,6 @@
 ## 📜 참고자료
 - https://yunwoong.tistory.com/92
 - https://wondangcom.tistory.com/2446
+
+
+faceCascade = cv2.CascadeClassifier('/home/user/opencv/data/haarcascades_cuda/haarcascades_frontalface_default.xml')
