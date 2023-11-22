@@ -32,7 +32,7 @@ class App extends Component {
     return (
       <div className="App">
         <div className="header">
-            <img src={logotxt} className="main-logo" alt="logotxt" />
+          <img src={logotxt} className="main-logo" alt="logotxt" />
           <img src={logo} className="App-logo" alt="logo" />
         </div>
         <header className="App-header">
@@ -52,13 +52,12 @@ class App extends Component {
               <button onClick={this.handleStartClass}>출석 시작</button>
             </div>
           </div>
-          <div>
-            <div className="setting-bar">
-              <h2>출석현황</h2>
-              <button>출석 저장</button>
-            </div>
-            <Attendance />
+
+          <div className="setting-bar">
+            <h2>출석현황</h2>
           </div>
+          <Attendance />
+          
         </header>
       </div>
     );

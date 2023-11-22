@@ -44,7 +44,7 @@ class Attendance extends Component {
         const statusTexts = ['출석 전', '출석', '지각', '결석'];
         return statusTexts[student.status];
     }
-    
+
     getAuthenticationStatusText(student) {
         const authenticationStatusTexts = [
             '인증되지 않음',
@@ -64,16 +64,16 @@ class Attendance extends Component {
 
         return (
             <div className="attendance">
-            {studentsData.map((student) => (
-                <div key={student.studentNumber} className={`profile-state ${this.getStatusColorClass(student)}`}>
-                    <img src={profile} className="profile" alt="profile" />
-                    <p className='name'>{student.name}</p>
-                    <p className='student-id'>{student.studentNumber}</p>
-                    <p className='student-state'>{this.getStatusText(student)}</p>
-                    <p className='student-state'>{this.getAuthenticationStatusText(student.authenticationStatus)}</p>
-                </div>
-            ))}
-        </div>
+                {studentsData.map((student) => (
+                    <div key={student.studentNumber} className={`profile-state ${this.getStatusColorClass(student)}`}>
+                        <img src={profile} className="profile" alt="profile" />
+                        <p className='name'>{student.name}</p>
+                        <p className='student-id'>{student.studentNumber}</p>
+                        <p className='student-state'>{this.getStatusText(student)}</p>
+                        <p className='student-state'>{this.getAuthenticationStatusText(student.authenticationStatus)}</p>
+                    </div>
+                ))}
+            </div>
         );
     }
 
