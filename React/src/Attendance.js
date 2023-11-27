@@ -12,29 +12,28 @@ class Attendance extends Component {
     }
 
     componentDidMount() {
-        // 서버에서 학생 데이터를 가져오는 API 호출 (시뮬레이션)
-        // 실제 API 호출을 사용하려면 Axios 또는 fetch 등을 사용해야 합니다.
-        // 여기에서는 시뮬레이션을 위해 하드코딩된 데이터를 사용합니다.
-        const simulatedStudentsData = [
-            {
-                name: '김이름',
-                studentNumber: '2019440931',
-                status: 0,
-                authenticationStatus: 2,
-                attendanceTime: '10:00',
-            },
-            {
-                name: '김이름',
-                studentNumber: '2019440932',
-                status: 0,
-                authenticationStatus: 3,
-                attendanceTime: '9:55',
-            },
-            // ... 다른 학생 데이터 추가
-        ];
-
-        this.setState({ studentsData: simulatedStudentsData });
+        // 전체 학생 정보 조회
+        fetch('http://localhost:3008/users/combined_info', {
+            method: 'GET', // GET 요청 방식을 사용
+        })
+        .then(response => response.json()) // 서버 응답을 JSON 형식으로 변환
+        .then(data => console.log(data)) // 변환된 데이터를 콘솔에 출력
+        .catch(error => console.error('Error:', error)); // 오류 발생 시 콘솔에 오류 메시지 출력
     }
+    
+    // componentDidMount() {
+    //     // 전체 학생 정보 조회
+    //     fetch('http://localhost:3008/users/sel_stu', {
+    //         method: 'POST', // POST 요청 방식을 사용
+    //         headers: {
+    //             'Content-Type': 'application/json', // 요청 본문이 JSON 형태임을 나타냄
+    //         }
+    //     })
+    //     .then(response => response.json()) // 서버 응답을 JSON 형식으로 변환
+    //     .then(data => console.log(data)) // 변환된 데이터를 콘솔에 출력
+    //     .catch(error => console.error('Error:', error)); // 오류 발생 시 콘솔에 오류 메시지 출력
+    // }
+
 
     setAuthenticationStatus = (status) => {
         this.setState({ authenticationStatus: status });
