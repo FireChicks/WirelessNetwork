@@ -3,6 +3,8 @@ var router = express.Router();
 var db = require('../lib/db.js');
 var cors = require("cors");
 var bodyParser = require('body-parser');
+var fs = require('fs'); // FS 모듈 추가
+var path = require('path'); // Path 모듈 추가
 
 var corsOptions = {
   origin: ["http://localhost:3000"],
@@ -10,9 +12,9 @@ var corsOptions = {
 };
 
 router.use(cors(corsOptions));
-router.use(bodyParser.json())
-router.use(bodyParser.urlencoded({extended:false}))
-router.use(express.urlencoded({ extended: true }))
+router.use(bodyParser.json());
+router.use(bodyParser.urlencoded({ extended: false }));
+router.use(express.urlencoded({ extended: true }));
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
@@ -36,6 +38,7 @@ router.get('/combined_info', function(req, res) {
     res.json(results);
   });
 });
+
 
 
 
@@ -84,5 +87,34 @@ router.post("/sel_att", (req, res) => {
   });
 });
 
-module.exports = router;
+// 이미지 파일 목록을 반환하는 라우트
+router.get('/images', function(req, res) {
+  const directoryPath = path.join(__dirname, '../public/images'); // 이미지 디렉토리 경로 지정
 
+  fs.readdir(directoryPath, function(err, files) {
+    if (err) {
+      res.status(500).send('서버에서 파일을 읽을 수 없습니다.');
+      return;
+    }
+
+    // 파일 목록을 JSON 형태로 반환
+    res.json(files);
+  });
+});
+
+// 이미지 파일 목록을 반환하는 라우트
+router.get('/face', function(req, res) {
+  const directoryPath = path.join(__dirname, '../public/face'); // 이미지 디렉토리 경로 지정
+
+  fs.readdir(directoryPath, function(err, files) {
+    if (err) {
+      res.status(500).send('서버에서 파일을 읽을 수 없습니다.');
+      return;
+    }
+
+    // 파일 목록을 JSON 형태로 반환
+    res.json(files);
+  });
+});
+
+module.exports = router;
