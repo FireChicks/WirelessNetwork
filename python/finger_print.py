@@ -81,65 +81,99 @@ def fingerprint_check_file(stu_num):
     else:
         print("Other error!")
     return False
+    
+def fingerprint_check_by_recieved(stu_id):
+    """Compares a new fingerprint template to an existing template stored in a file
+    This is useful when templates are stored centrally (i.e. in a database)"""
+    print("Waiting for finger print...")
+    while finger.get_image() != adafruit_fingerprint.OK:
+        pass
+    print("Templating...")
+    if finger.image_2_tz(1) != adafruit_fingerprint.OK:
+        return False
+
+    print("Loading file template...", end="")
+    with open(f'./recievedTamplet/{stu_id}.dat', "rb") as file:
+        data = file.read()
+    finger.send_fpdata(list(data), "char", 2)
+
+    i = finger.compare_templates()
+    if i == adafruit_fingerprint.OK:
+        print("Fingerprint match template in file.")
+        return True
+    if i == adafruit_fingerprint.NOMATCH:
+        print("Templates do not match!")
+    else:
+        print("Other error!")
+    return False
 
 
 # pylint: disable=too-many-statements
 def enroll_save_to_file(stu_num):
-    for fingerimg in range(1, 3):
-        if fingerimg == 1:
-            print("Place finger on sensor...", end="")
-        else:
-            print("Place same finger again...", end="")
+    attempt_counter = 0  # 시도 횟수를 저장하는 변수
 
-        while True:
-            i = finger.get_image()
-            if i == adafruit_fingerprint.OK:
-                print("Image taken")
-                break
-            if i == adafruit_fingerprint.NOFINGER:
-                print(".", end="")
-            elif i == adafruit_fingerprint.IMAGEFAIL:
-                print("Imaging error")
-                return False
+    while attempt_counter < 3:  # 시도 횟수가 3번 미만인 동안 반복
+        attempt_counter += 1  # 시도 횟수 증가
+
+        for fingerimg in range(1, 3):
+            if fingerimg == 1:
+                print("Place finger on sensor...", end="")
             else:
-                print("Other error")
-                return False
+                print("Place same finger again...", end="")
 
-        print("Templating...", end="")
-        i = finger.image_2_tz(fingerimg)
-        if i == adafruit_fingerprint.OK:
-            print("Templated")
-        else:
-            if i == adafruit_fingerprint.IMAGEMESS:
-                print("Image too messy")
-            elif i == adafruit_fingerprint.FEATUREFAIL:
-                print("Could not identify features")
-            elif i == adafruit_fingerprint.INVALIDIMAGE:
-                print("Image invalid")
-            else:
-                print("Other error")
-            return False
-
-        if fingerimg == 1:
-            print("Remove finger")
-            while i != adafruit_fingerprint.NOFINGER:
+            while True:
                 i = finger.get_image()
+                if i == adafruit_fingerprint.OK:
+                    print("Image taken")
+                    break
+                if i == adafruit_fingerprint.NOFINGER:
+                    print(".", end="")
+                elif i == adafruit_fingerprint.IMAGEFAIL:
+                    print("Imaging error")
+                    return False
+                else:
+                    print("Other error")
+                    return False
 
-    print("Creating model...", end="")
-    i = finger.create_model()
-    if i == adafruit_fingerprint.OK:
-        print("Created")
-    else:
-        if i == adafruit_fingerprint.ENROLLMISMATCH:
-            print("Prints did not match")
+            
+            print("Templating...", end="")
+            i = finger.image_2_tz(fingerimg)
+            if i == adafruit_fingerprint.OK:
+                print("Templated")
+            else:
+                if i == adafruit_fingerprint.IMAGEMESS:
+                    print("Image too messy")
+                elif i == adafruit_fingerprint.FEATUREFAIL:
+                    print("Could not identify features")
+                elif i == adafruit_fingerprint.INVALIDIMAGE:
+                    print("Image invalid")
+                else:
+                    print("Other error")
+                return False
+
+            if fingerimg == 1:
+                print("Remove finger")
+                while i != adafruit_fingerprint.NOFINGER:
+                    i = finger.get_image()
+
+        print("Creating model...", end="")
+        i = finger.create_model()
+        if i == adafruit_fingerprint.OK:
+            print("Created")
         else:
-            print("Other error")
-        return False
+            if i == adafruit_fingerprint.ENROLLMISMATCH:
+                print("Prints did not match")
+            else:
+                print("Other error")
+            continue  # 처음으로 돌아가기
 
-    print("Downloading template...")
-    data = finger.get_fpdata("char", 1)
-    with open(f'{directory}template_{stu_num}.dat', "wb") as file:
-        file.write(bytearray(data))
-    print(f'Template is saved in template{stu_num}.dat file.')
+        print("Downloading template...")
+        data = finger.get_fpdata("char", 1)
+        with open(f'{directory}template_{stu_num}.dat', "wb") as file:
+            file.write(bytearray(data))
+        print(f'Template is saved in template{stu_num}.dat file.')
 
-    return True
+        return True
+
+    return False  # 3번 시도 후에도 실패할 경우 False 반환
+

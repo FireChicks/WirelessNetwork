@@ -3,6 +3,9 @@ import numpy as np
 import os
 import requests
 from PIL import Image #python imaging library
+import studentVO
+import student_db_manager as stu_db_man
+import image_db_manager as img_db_man
 
 #라즈베리파이 Flask 서버 ip 및 포트
 streaming_url = 'http://192.168.123.110:5000'
@@ -13,44 +16,38 @@ recognizer = cv2.face.LBPHFaceRecognizer_create()
 
 #모델 로드
 recognizer.read('train_data/train_model.yml')
+userfaceDir = './user_face/'
 
 detector = cv2.CascadeClassifier(cascadePath)
-path = "face_data"
+facePath = "face_data"
+
 id = 0
 names = []
 
-#학생 클래스
-class Student:
-    stu_name = ""
-    stu_grade = ""
-    stu_class = ""
-    stu_id = ""
-    stu_dept = ""
-    stu_finger_print: bytes
-    finger_dir = './finger_prints/'
 
-    def __init__(self, name, grade, cls, id, dept, finger_print):
-        self.stu_name = name
-        self.stu_grade = grade
-        self.stu_class = cls
-        self.stu_id = id
-        self.stu_dept = dept
-        self.stu_finger_print = finger_print
-        with open(f'{self.finger_dir}{self.stu_id}.dat', 'wb') as file:
-            file.write(self.stu_finger_print)
-
-    #지문 재등록시 사용 메서드
-    def change_finger_print(self, finger_print):
-        self.stu_finger_print = finger_print
-
-
-for image_name in os.listdir(path):
+for image_name in os.listdir(facePath):
     id = image_name.split(".")[0]
     names.append(int(id))
 
 names = list(set(names))  # 중복 제거, 정렬됨
 
 
+def read_files_by_student_id(directory, student_id):
+    matching_files_content = []
+
+    # 해당 디렉토리 내의 모든 파일에 대해 확인
+    for filename in os.listdir(directory):
+        # 파일 이름에서 확장자를 제외한 부분을 가져옴
+        name, extension = os.path.splitext(filename)
+        # 파일 이름을 학번과 .을 기준으로 분리하여 학번 부분을 가져옴
+        parts = name.split('.')
+        if len(parts) > 1:
+            file_student_id = parts[0]
+            # 학번이 입력한 학번과 일치하면 해당 파일을 읽어서 리스트에 추가
+            if file_student_id == student_id:
+                matching_files_content.append(read_file(f'./{directory}/{name}{extension}'))
+
+    return matching_files_content
 def getImagesAndLabels(imagePath):
     imagePaths = []
     faceSamples = []
@@ -77,8 +74,11 @@ def getImagesAndLabels(imagePath):
             ids.append(id)
 
     return faceSamples, ids
+
+
 def check_face():
     response = requests.get(f'{streaming_url}/video_feed', stream=True)
+    conf = 0
     if response.status_code == 200:
         bytes_data = bytes()
         for chunk in response.iter_content(chunk_size=1024):
@@ -92,22 +92,27 @@ def check_face():
 
                 gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
                 faces = faceCascade.detectMultiScale(gray, scaleFactor=1.05, minNeighbors=6, minSize=(200, 200))
-
                 for (x, y, w, h) in faces:
                     cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 255, 0), 2)
-                    id, confidence = recognizer.predict(gray[y : y + h, x : x + w])
+                    id, confidence = recognizer.predict(gray[y: y + h, x: x + w])
                     if round(100 - confidence) < 70:
                         id = "Unknown"
+
+                    conf = 100 - confidence
 
                     confidence = "  {0}%".format(round(100 - confidence))
                     font = cv2.FONT_HERSHEY_SIMPLEX
                     cv2.putText(frame, str(id), (x + 5, y - 5), font, 1, (255, 255, 255), 2)
                     cv2.putText(frame, str(confidence), (x + 5, y + h - 5), font, 1, (255, 255, 0), 1)
 
+                if conf > 70:
+                    break
+
                 cv2.imshow('Received Frame', frame)
 
                 if cv2.waitKey(1) & 0xFF == ord('q'):
                     break
+    return id
 
 def face_collect(face_id):
     user_face_folder = 'user_face'  # 사용자 얼굴
@@ -138,7 +143,11 @@ def face_collect(face_id):
                 for (x, y, w, h) in faces:
                     cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 255, 0), 2)
                     count += 1
-                    file_path = os.path.join(path, f"{face_id}.{count}.jpg")
+                    if count == 1:
+                        resized_face_user = cv2.resize(frame[y - 100:y + h + 150, x - 100:x + w + 100], (400, 400))
+                        cv2.imwrite(user_face_path, resized_face_user)
+
+                    file_path = os.path.join(facePath, f"{face_id}.{count}.jpg")
                     cv2.imwrite(file_path, gray[y:y + h, x:x + w])
                     font = cv2.FONT_HERSHEY_SIMPLEX
                     cv2.putText(frame, str(count), (x + 5, y - 5), font, 1, (255, 255, 255), 2)
@@ -165,9 +174,31 @@ def save_finger_print(student_id):
     except requests.RequestException as e:
         print(f'An error occurred: {e}')
 
+def send_finger_print(VO):
+    # 요청 보내기
+    url = f'{streaming_url}/check_fingerprint'
+    files = {
+        'stu_finger_print': VO.stu_finger_print
+    }
+
+    data = {
+        'stu_id': VO.stu_id
+    }
+    response = requests.post(url, files=files, data=data)
+    if response.status_code == 200:
+        text = response.text
+        if text == 'True':
+            return True
+        elif text == 'False':
+            return False
+        else :
+            print(text)
+    else:
+        print(f'Error: {response.status_code}')
+        return False
 def train_model():
     print('\n [INFO] Training faces. It will take a few seconds. Wait ...')
-    faces, ids = getImagesAndLabels(path)
+    faces, ids = getImagesAndLabels(facePath)
 
     recognizer.train(faces, np.array(ids))  # 학습
 
@@ -177,19 +208,45 @@ def train_model():
 
     print('\n [INFO] {0} faces trained.'.format(len(np.unique(ids))))
 
+def read_file(dir):
+    try:
+        with open(f'{dir}', 'rb') as file:
+            image_data = file.read()
+        return image_data
+    except FileNotFoundError:
+        print("파일을 찾을 수 없습니다.")
+    except IOError as e:
+        print("파일을 읽는 중 오류가 발생했습니다:", e)
+    except Exception as e:
+        print("알 수 없는 오류가 발생했습니다:", e)
+
+
 while True:
     print('-----------------------------')
     print('c) 얼굴 확인')
+    print('cf) 지문 확인')
     print('e) 신규 등록')
     print('t) 모델 학습')
+    print('x) 테스트')
     print('q) 종료')
     print('-----------------------------')
     c = input(">")
 
     if c == "c":
-        check_face()
+        stu_id = check_face()
+        print(f'{stu_id}님이 인증되었습니다.')
+    elif c == "cf":
+        stu_num = input('지문을 체크할 학번을 입력해주세요')
+        student = stu_db_man.select_student(stu_num)
+        if student == None:
+            pass
+        if send_finger_print(student):
+            print('인증된 지문입니다.')
+        else:
+            print('인증되지 않은 지문입니다.')
     elif c == "e":
         valid_grade = True
+        stu_grade = 0
         stu_name = input('이름을 입력해주세요 > ')
         while valid_grade :
             input_grade = input('학년을 입력해주세요 (1~4) > ')
@@ -204,16 +261,29 @@ while True:
         stu_id = input('학번을 입력해주세요 > ')
         stu_dept = input('학부를 입력해주세요 > ')
 
+        #100장의 사진 수집
         print(f"{stu_id}님의 사진 저장을 시작합니다.")
         face_collect(stu_id)
         stu_finger = save_finger_print(student_id=stu_id)
 
-        student = Student(name=stu_name, grade=str(stu_grade), cls=stu_class, id=stu_id,dept=stu_dept,finger_print=stu_finger)
+        #대표 이미지 가져오기
+        print('대표 이미지를 불러옵니다...')
+        stu_pic = read_file(f'{userfaceDir}{stu_id}.jpg')
 
-    elif c == "f":
+        #학생VO와 이미지 리스트 생성
+        student = studentVO.StudentVO(name=stu_name, grade=str(stu_grade), cls=stu_class,
+                          id=stu_id,dept=stu_dept, pic=stu_pic, finger=stu_finger)
+        images = read_files_by_student_id(facePath,stu_id)
+        if images == None:
+            print('사진저장이 제대로 되지 않았습니다.')
+            pass
+        #DB에 학생, 이미지들 순으로 입력
+        stu_db_man.insert_student(student)
+        img_db_man.insert_images(stu_id, images)
+    elif c == "t":
         train_model()
-
     elif c == "q":
         raise SystemExit
-
+    else:
+        print('지정된 알파벳을 소문자로 입력해주세요')
 cv2.destroyAllWindows()

@@ -42,5 +42,21 @@ def register_fingerprint():
         return send_file(f'{directory}template_{student_id}.dat', as_attachment=True)
     return 'Method Not Allowed', 405
 
+@app.route('/check_fingerprint', methods=['POST'])
+def check_fingerprint():
+    if request.method == 'POST':
+        if 'stu_finger_print' in request.files:
+            stu_finger_print = request.files['stu_finger_print']
+            stu_id = request.form['stu_id']
+            stu_finger_print.save(f'./recievedTamplet/{stu_id}.dat')
+            print('지문 저장')
+            if fp.fingerprint_check_by_recieved(stu_id) :
+                return 'True'
+            else:
+                return 'False'
+        else:
+            return '지문 파일이 전송되지 않았습니다.', 400
+
+    return 'Method Not Allowed', 405
 if __name__ == "__main__":
     app.run(debug=True, host='0.0.0.0')
