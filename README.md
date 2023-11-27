@@ -66,6 +66,7 @@
 <br/>
 
 <img width="526" alt="스크린샷 2023-11-27 오후 11 14 06" src="https://github.com/JiminGod/WirelessNetwork/assets/129360388/ee6786e6-cd9d-49b9-b3f4-29823c1f8c54">
+<img width="524" alt="스크린샷 2023-11-28 오전 12 06 00" src="https://github.com/JiminGod/WirelessNetwork/assets/129360388/39473399-4b8b-434d-ac6f-35192a41efb6">
 
 
 
