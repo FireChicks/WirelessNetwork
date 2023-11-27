@@ -1,0 +1,12 @@
+{
+  "name": "wirelessnetwork",
+  "version": "1.0.0",
+  "description": "라즈베리 파이, 카메라 센서를 활용한 얼굴인식 출결관리 시스템",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
