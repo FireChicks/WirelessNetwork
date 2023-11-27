@@ -19,6 +19,26 @@ router.get('/', function(req, res, next) {
   res.send('respond with a resource');
 });
 
+// 전체 학생 및 출석 정보를 결합하여 반환합니다.
+router.get('/combined_info', function(req, res) {
+  const query = `
+    SELECT student.*, att.att_state, att.att_way, att.att_time
+    FROM student
+    LEFT JOIN att ON student.stu_id = att.stu_id;
+  `;
+
+  db.query(query, function(err, results) {
+    if (err) {
+      console.error(err); // 서버 콘솔에 오류 출력
+      res.status(500).json({ error: 'Server Error' }); // JSON 형식으로 에러 응답
+      return;
+    }
+    res.json(results);
+  });
+});
+
+
+
 // 학생테이블 정보를 JSON 형태로 보내줍니다.
 router.post('/sel_stu', function(req, res) {
   const stu_id = req.body.stu_id;
@@ -65,3 +85,4 @@ router.post("/sel_att", (req, res) => {
 });
 
 module.exports = router;
+

@@ -1,6 +1,8 @@
 var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
+var cors = require('cors'); // CORS 라이브러리 임포트
+
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
@@ -9,6 +11,7 @@ var usersRouter = require('./routes/users');
 
 var app = express();
 
+app.use(cors());
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
