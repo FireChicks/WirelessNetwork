@@ -60,7 +60,7 @@
 - https://yunwoong.tistory.com/92
 - https://wondangcom.tistory.com/2446
 
-#### 11/21 ~ 11/27 진행상황
+### 11/21 ~ 11/27 진행상황
 ↓시스템 구성도
 ![ㄴㅁㅇㅇ](https://github.com/JiminGod/WirelessNetwork/assets/129360388/acdcba43-178a-4875-8cec-cf425714485e)
 
