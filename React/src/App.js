@@ -11,9 +11,27 @@ class App extends Component {
     this.state = {
       classStartTime: '', // 수업 시작 시간을 저장할 상태
       attendanceTimes: [], // 출석 시간 목록을 저장할 상태
+      faceList: [], // facelist를 저장할 상태
     };
   }
+  componentDidMount() {
+    this.fetchFaceList(); // 컴포넌트가 마운트되면 facelist를 가져옴
+    this.setDefaultImage(); // 기본 이미지 설정
 
+  }
+  fetchFaceList() {
+    fetch('http://localhost:3008/face')
+      .then(response => response.json())
+      .then(data => this.setState({ faceList: data }))
+      .catch(error => console.error('Error:', error));
+  }
+  getFaceImage(image) {
+    const imageName = `${image}`;
+
+      const FaceUrl = `http://localhost:3008/face/${imageName}`;
+      console.log("FaceUrl:", FaceUrl);
+      return FaceUrl;
+  }
   handleStartClass = () => {
     // 입력된 시간 문자열 가져오기
     const timeInput = document.querySelector('input[name="time-setting"]');
@@ -39,10 +57,22 @@ class App extends Component {
 
     }
   };
+  handleFaceListChange = (event) => {
+    const selectedOption = event.target.value;
+    const faceUrl = this.getFaceImage(selectedOption);
+    this.setState({ selectedImage: faceUrl });
+  };
+  setDefaultImage() {
+
+      const defaultImageUrl = camera; // 기본 이미지 URL을 설정해주세요.
+      this.setState({ selectedImage: defaultImageUrl });
+
+  }
+  
 
 
   render() {
-    const { attendanceTimes } = this.state;
+    const { attendanceTimes, faceList, selectedImage } = this.state;
 
     // 생성된 출석 시간 목록을 옵션으로 변환
     const attendanceOptions = attendanceTimes.map((time, index) => (
@@ -50,6 +80,13 @@ class App extends Component {
         {time}
       </option>
     ));
+    // facelist를 옵션으로 변환
+    const faceListOptions = faceList.map((face, index) => (
+      <option key={index} value={face}>
+        {face}
+      </option>
+    ));
+
 
     return (
       <div className="App">
@@ -58,7 +95,12 @@ class App extends Component {
           <img src={logo} className="App-logo" alt="logo" />
         </div>
         <header className="App-header">
-          <img src={camera} className="image" alt="camera" />
+          <div>
+          <img src={selectedImage} className="image" alt="camera" /> {/* 선택된 이미지로 변경 */}
+            <select name="language" size="4" onChange={this.handleFaceListChange}>
+              {faceListOptions}
+            </select>
+          </div>
           <div className="setting-bar">
             <div className="setting-container">
               <div className="inline-box">

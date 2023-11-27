@@ -14,20 +14,24 @@
 ## 📕 구조
 1. 라즈베리 파이 + 카메라 센서
 2. 얼굴인식 모델
-3. 사진 데이터베이스 저장 및 모델과 비교, 출석 체크
-4. 출결관리 UI
+3. 지문인식 모델
+4. 사진 데이터베이스 저장 및 모델과 비교, 출석 체크
+5. 출결관리 UI
 
 ## 🛠️ 주요기능
 
 ## 🔨 각 분야 기능
 
-🧠 얼굴인식 AI 학습 (OpenCV - 서버 또는 외부에서 수행): 김현빈, 김지민, 이재윤
+🧠 얼굴인식 AI 학습 (OpenCV - 서버 또는 외부에서 수행): 김현빈
 
 - OpenCV와 함께 Dlib 등의 라이브러리를 사용하여 얼굴 특징을 추출하고 학습 데이터를 구성합니다.
 - 학습된 모델은 라즈베리 파이의 백엔드 서버로 전송되어 사용됩니다.
-    
 
-💾 백엔드 ( MySQL - 라즈베리 파이에서 실행): 김강민
+👆 지문인식 시스템 : 김지민
+- AS608 지문인식 센서를 사용하여 지문을 등록하고 인식하도록 학습 데이터를 구성합니다.
+- 얼굴인식 모델과 같이 백엔드 서버로 전송되어 사용됩니다.
+
+💾 백엔드 ( MySQL - 라즈베리 파이에서 실행): 김강민, 이재윤
 
 - 클라이언트의 요청을 처리하고, OpenCV를 사용하여 카메라로 촬영한 이미지를 얼굴인식 모델에 전달합니다.
 - 출석 정보를 저장하고, 필요에 따라 데이터베이스를 사용하여 출석 기록을 관리합니다.
@@ -56,6 +60,18 @@
 - https://yunwoong.tistory.com/92
 - https://wondangcom.tistory.com/2446
 
+### 11/21 ~ 11/27 진행상황
+↓시스템 구성도 (라즈베리파이 / 백엔드)
+![ㄴㅁㅇㅇ](https://github.com/JiminGod/WirelessNetwork/assets/129360388/acdcba43-178a-4875-8cec-cf425714485e)
+<br/>
 
-faceCascade = cv2.CascadeClassifier('/home/user/opencv/data/haarcascades_cuda/haarcascades_frontalface_default.xml')
-detector
+<img width="526" alt="스크린샷 2023-11-27 오후 11 14 06" src="https://github.com/JiminGod/WirelessNetwork/assets/129360388/ee6786e6-cd9d-49b9-b3f4-29823c1f8c54">
+<img width="524" alt="스크린샷 2023-11-28 오전 12 06 00" src="https://github.com/JiminGod/WirelessNetwork/assets/129360388/39473399-4b8b-434d-ac6f-35192a41efb6">
+
+
+
+
+
+
+
+
