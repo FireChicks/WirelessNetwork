@@ -59,6 +59,7 @@ class Attendance extends Component {
         return profile; // 기본 이미지
     }
 
+
     componentDidMount() {
         this.fetchStudentsData();
         this.fetchImagesList();
