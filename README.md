@@ -14,8 +14,9 @@
 ## 📕 구조
 1. 라즈베리 파이 + 카메라 센서
 2. 얼굴인식 모델
-3. 사진 데이터베이스 저장 및 모델과 비교, 출석 체크
-4. 출결관리 UI
+3. 지문인식 모델
+4. 사진 데이터베이스 저장 및 모델과 비교, 출석 체크
+5. 출결관리 UI
 
 ## 🛠️ 주요기능
 
@@ -54,11 +55,31 @@
 3. 백엔드 erd 및 데이터베이스 생성
 4. 모델학습 진행 중 (2명의 사진으로 테스트 진행)
 
-#### 11/21 ~ 11/27 진행상황
-
-
 
 ## 📜 참고자료
 - https://yunwoong.tistory.com/92
 - https://wondangcom.tistory.com/2446
+
+#### 11/21 ~ 11/27 진행상황
+↓시스템 구성도
+![ㄴㅁㅇㅇ](https://github.com/JiminGod/WirelessNetwork/assets/129360388/acdcba43-178a-4875-8cec-cf425714485e)
+
+라즈베리파이에서 처리하던 영상 처리를 Flask를 사용한 스트리밍으로 백엔드 서버에서 받아와서 이를 인식하고 처리하게 분리하였습니다.
+![1](https://github.com/JiminGod/WirelessNetwork/assets/129360388/130a1266-b4ba-4ac3-8bbe-091d0883d433)
+(flask 웹서버)
+
+![2](https://github.com/JiminGod/WirelessNetwork/assets/129360388/6757c48b-ebe8-451b-899f-df039b2549a3)
+↑루프백 IP를 사용해서 라즈베리파이에서 정상 작동하는지 확인한 모습
+
+![3](https://github.com/JiminGod/WirelessNetwork/assets/129360388/7519c330-a80e-4cea-9ff7-05375e70fd87)
+↑내부 IP를 사용해서 /video_feed에 접속한 모습
+
+또 지문을 라즈베리파이의 센서의 메모리에 저장하는 방식과 dat파일로 뽑을 수 있는 두가지 방식중에서 dat 파일을 데이터베이스에 저장하는 방식으로 결정했기에 지문을 스캔하고 나온 dat파일을 다음과같이 전달받을 수 있게 처리했습니다.
+![285863839-eb33fe7d-9a40-4401-84c9-d1e79c2fb971](https://github.com/JiminGod/WirelessNetwork/assets/129360388/ec6a7d83-9928-4f84-af3a-2218dfcdd1db)
+
+
+
+
+
+
 
