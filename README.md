@@ -67,18 +67,22 @@
 <br/>
 
 ![1](https://github.com/JiminGod/WirelessNetwork/assets/129360388/130a1266-b4ba-4ac3-8bbe-091d0883d433)
+<br/>
 (flask 웹서버)
 <br/>
 
 ![2](https://github.com/JiminGod/WirelessNetwork/assets/129360388/6757c48b-ebe8-451b-899f-df039b2549a3)
-↑루프백 IP를 사용해서 라즈베리파이에서 정상 작동하는지 확인한 모습
 <br/>
+↑루프백 IP를 사용해서 라즈베리파이에서 정상 작동하는지 확인한 모습
+
 
 ![3](https://github.com/JiminGod/WirelessNetwork/assets/129360388/7519c330-a80e-4cea-9ff7-05375e70fd87)
+<br/>
 ↑내부 IP를 사용해서 /video_feed에 접속한 모습
 <br/>
 
 또 지문을 라즈베리파이의 센서의 메모리에 저장하는 방식과 dat파일로 뽑을 수 있는 두가지 방식중에서 dat 파일을 데이터베이스에 저장하는 방식으로 결정했기에 지문을 스캔하고 나온 dat파일을 다음과같이 전달받을 수 있게 처리했습니다.
+<br/>
 ![285863839-eb33fe7d-9a40-4401-84c9-d1e79c2fb971](https://github.com/JiminGod/WirelessNetwork/assets/129360388/ec6a7d83-9928-4f84-af3a-2218dfcdd1db)
 
 
