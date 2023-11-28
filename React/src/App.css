@@ -187,3 +187,7 @@ button:hover {
 .flex{
   display: flex;
 }
+
+.date-text{
+  color: #222222;
+}

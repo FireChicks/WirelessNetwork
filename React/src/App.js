@@ -86,6 +86,10 @@ class App extends Component {
         {face}
       </option>
     ));
+    // 현재시간 가져오기
+    const today = new Date();
+    // 날짜 지정
+    const formattedDate = `${today.getFullYear()}년 ${today.getMonth() + 1}월 ${today.getDate()}일 ${today.getHours()}시 ${today.getMinutes()}분`;
 
 
     return (
@@ -119,11 +123,15 @@ class App extends Component {
             </div>
             <div>
               <button onClick={this.handleStartClass}>출석 확인</button>
+
+
+
             </div>
           </div>
 
           <div className="setting-bar">
             <h2>출석현황</h2>
+            <a class="date-text">{formattedDate}</a>
           </div>
           <Attendance classStartTime={this.state.classStartTime} />
         </header>
