@@ -2,9 +2,11 @@
   text-align: center;
 }
 h2 {
+  margin:0;
   margin-left: 10px;
   font-size: 18px;
 }
+.face-log:focus {outline:none;}
 p{
   font-weight: 700;
   margin: 0;
@@ -12,8 +14,8 @@ p{
 }
 .image{
   border-radius: 16px;
-  width: 600px;
-  height: 356px;
+  width: 590px;
+  height: 350px;
   object-fit: cover;
   margin-bottom: 14px;
 }
@@ -172,13 +174,17 @@ button:hover {
   font-size: 12px;
 }
 .log-title{
+  box-shadow: 4px 5px 2px #e8e8e8;;
   padding: 10px;
     background: white;
     border-radius: 6px;
     margin-bottom: 10px;
 }
 .face-log{
+  box-shadow: 4px 5px 2px #e8e8e8;;
   border: none;
+  padding: 20px;
+  border-radius: 10px;
 }
 .top-container{
   margin-left: 10px;

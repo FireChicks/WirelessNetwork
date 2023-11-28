@@ -32,20 +32,21 @@ class App extends Component {
     console.log("FaceUrl:", FaceUrl);
     return FaceUrl;
   }
+  
   handleStartClass = () => {
     // 입력된 시간 문자열 가져오기
     const timeInput = document.querySelector('input[name="time-setting"]');
     const timeString = timeInput.value;
-
+  
     // 오늘의 날짜를 가져옴
     const today = new Date();
     const year = today.getFullYear();
     const month = ("0" + (today.getMonth() + 1)).slice(-2); // 월은 0부터 시작하므로 1을 더해줍니다.
     const day = ("0" + today.getDate()).slice(-2);
-
+  
     // 시간 문자열을 Date 객체로 파싱
     const currentTime = new Date(`${year}-${month}-${day}T${timeString}:00`);
-
+  
     // 유효한 Date 객체인지 확인
     if (isNaN(currentTime.getTime())) {
       // 유효하지 않은 경우 얼럿 창 띄우기
@@ -54,9 +55,12 @@ class App extends Component {
       // 유효한 경우 콘솔에 시간 출력
       console.log('출석 시간 (Date 객체):', currentTime);
       this.setState({ classStartTime: currentTime }); // 수업 시작 시간 설정
-
+      
+      // faceList를 다시 가져오기 위해 fetchFaceList() 호출
+      this.fetchFaceList();
     }
   };
+  
   handleFaceListChange = (event) => {
     const selectedOption = event.target.value;
     const faceUrl = this.getFaceImage(selectedOption);
@@ -105,7 +109,7 @@ class App extends Component {
               <div>
                 <p class="log-title">인증로그</p>
               </div>
-              <select class="face-log" name="face-log" size="18" onChange={this.handleFaceListChange}>
+              <select class="face-log" name="face-log" size="15" onChange={this.handleFaceListChange}>
                 {faceListOptions}
               </select>
             </div>
@@ -123,12 +127,8 @@ class App extends Component {
             </div>
             <div>
               <button onClick={this.handleStartClass}>출석 확인</button>
-
-
-
             </div>
           </div>
-
           <div className="setting-bar">
             <h2>출석현황</h2>
             <a class="date-text">{formattedDate}</a>
