@@ -11,7 +11,11 @@ p{
   font-size: 16px;
 }
 .image{
+  border-radius: 16px;
   width: 600px;
+  height: 356px;
+  object-fit: cover;
+  margin-bottom: 14px;
 }
 .setting-bar .info{
   width: 210px;
@@ -48,10 +52,10 @@ p{
 }
 .header{
   height: 70px;
-  width: 600px;
+  width: 700px;
   font-size: 12px;
   color: #222222;
-  max-width: 600px;
+  max-width: 700px;
   display: inline-flex;
   align-items: center;
   justify-content: space-between;
@@ -125,8 +129,10 @@ button:hover {
   padding-bottom: 12px;
 }
 .profile{
-  padding: 10% 5% 4px 5%;
+  padding: 14% 5% 4px 5%;
   width: 70%;
+  height: 120px;
+  object-fit: cover;
 }
 
 /* 예시 CSS 스타일 */
@@ -164,4 +170,20 @@ button:hover {
 .student-state{
   padding-top: 4px;
   font-size: 12px;
+}
+.log-title{
+  padding: 10px;
+    background: white;
+    border-radius: 6px;
+    margin-bottom: 10px;
+}
+.face-log{
+  border: none;
+}
+.top-container{
+  margin-left: 10px;
+  display: inline-block;
+}
+.flex{
+  display: flex;
 }

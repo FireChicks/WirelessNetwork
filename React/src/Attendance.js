@@ -76,7 +76,16 @@ class Attendance extends Component {
     }
 
     getStatusText(student) {
-        const statusTexts = ['출석 전', '출석', '지각', '결석'];
+        const statusTexts = ['출석 전 ', '출석 ', '지각 ', '결석 '];
+
+        if (student.att_state !== 0 && student.att_state !== 3) {
+            const attTime = new Date(student.att_time); // 문자열을 Date 객체로 파싱
+            const hours = attTime.getHours(); // 시간 추출
+            const minutes = attTime.getMinutes(); // 분 추출
+            const formattedTime = `${hours}:${minutes}`; // 시간 형식으로 포맷
+    
+            return statusTexts[student.att_state] + formattedTime;
+        }
         return statusTexts[student.att_state];
     }
 
@@ -84,7 +93,11 @@ class Attendance extends Component {
         const authenticationStatusTexts = [
             '인증되지 않음', '지문인증', '얼굴인증', '지문/얼굴 인증',
         ];
-        return authenticationStatusTexts[student];
+
+        if(student.att_state == 0){
+            return ""
+        }
+        return authenticationStatusTexts[student.att_way];
     }
 
     getStatusColorClass(student) {
@@ -103,7 +116,7 @@ class Attendance extends Component {
                         <p className='name'>{student.stu_name}</p>
                         <p className='student-id'>{student.stu_id}</p>
                         <p className='student-state'>{this.getStatusText(student)}</p>
-                        <p className='student-state'>{this.getAuthenticationStatusText(student.att_way)}</p>
+                        <p className='student-state'>{this.getAuthenticationStatusText(student)}</p>
                     </div>
                 ))}
             </div>

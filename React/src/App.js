@@ -28,9 +28,9 @@ class App extends Component {
   getFaceImage(image) {
     const imageName = `${image}`;
 
-      const FaceUrl = `http://localhost:3008/face/${imageName}`;
-      console.log("FaceUrl:", FaceUrl);
-      return FaceUrl;
+    const FaceUrl = `http://localhost:3008/face/${imageName}`;
+    console.log("FaceUrl:", FaceUrl);
+    return FaceUrl;
   }
   handleStartClass = () => {
     // 입력된 시간 문자열 가져오기
@@ -64,11 +64,11 @@ class App extends Component {
   };
   setDefaultImage() {
 
-      const defaultImageUrl = camera; // 기본 이미지 URL을 설정해주세요.
-      this.setState({ selectedImage: defaultImageUrl });
+    const defaultImageUrl = camera; // 기본 이미지 URL을 설정해주세요.
+    this.setState({ selectedImage: defaultImageUrl });
 
   }
-  
+
 
 
   render() {
@@ -95,11 +95,16 @@ class App extends Component {
           <img src={logo} className="App-logo" alt="logo" />
         </div>
         <header className="App-header">
-          <div>
-          <img src={selectedImage} className="image" alt="camera" /> {/* 선택된 이미지로 변경 */}
-            <select name="language" size="4" onChange={this.handleFaceListChange}>
-              {faceListOptions}
-            </select>
+          <div class="flex">
+            <img src={selectedImage} className="image" alt="camera" /> {/* 선택된 이미지로 변경 */}
+            <div class="top-container">
+              <div>
+                <p class="log-title">인증로그</p>
+              </div>
+              <select class="face-log" name="face-log" size="18" onChange={this.handleFaceListChange}>
+                {faceListOptions}
+              </select>
+            </div>
           </div>
           <div className="setting-bar">
             <div className="setting-container">
