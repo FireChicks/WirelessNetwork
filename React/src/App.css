@@ -14,7 +14,7 @@ p{
 }
 .image{
   border-radius: 16px;
-  width: 590px;
+  width: 500px;
   height: 350px;
   object-fit: cover;
   margin-bottom: 14px;
@@ -181,6 +181,8 @@ button:hover {
     margin-bottom: 10px;
 }
 .face-log{
+  width: 220px;
+  height: 298px;
   box-shadow: 4px 5px 2px #e8e8e8;;
   border: none;
   padding: 20px;
