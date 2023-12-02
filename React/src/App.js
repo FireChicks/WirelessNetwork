@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import logo from './logo.png';
 import logotxt from './logo.svg';
 import Attendance from './Attendance';
-import camera from './profile/camera.jpeg';
+import camera from './profile/camera.png';
 import './App.css';
 
 class App extends Component {
@@ -19,19 +19,35 @@ class App extends Component {
     this.setDefaultImage(); // 기본 이미지 설정
 
   }
+
   fetchFaceList() {
-    fetch('http://localhost:3008/face')
+    fetch('http://localhost:3008/users/sel_att')
       .then(response => response.json())
-      .then(data => this.setState({ faceList: data }))
+      .then(data => {
+        // 서버에서 받은 데이터의 att_date 필드만 추출하여 배열에 추가
+        const extractedDates = data.map(item => item.att_date);
+  
+        this.setState({ faceList: extractedDates });
+      })
       .catch(error => console.error('Error:', error));
   }
-  getFaceImage(image) {
-    const imageName = `${image}`;
-
-    const FaceUrl = `http://localhost:3008/face/${imageName}`;
-    console.log("FaceUrl:", FaceUrl);
-    return FaceUrl;
-  }
+  getFaceImage = async (date) => {
+    try {
+      const response = await fetch(`http://localhost:3008/users/sel_att`);
+      const data = await response.json();
+      
+      const matchingImage = data.find(item => item.att_date === date);
+  
+      if (matchingImage) {
+        return matchingImage.img;
+      } else {
+        return null;
+      }
+    } catch (error) {
+      console.error('Error:', error);
+      return null;
+    }
+  };
   
   handleStartClass = () => {
     // 입력된 시간 문자열 가져오기
@@ -61,11 +77,14 @@ class App extends Component {
     }
   };
   
-  handleFaceListChange = (event) => {
+  handleFaceListChange = async (event) => {
     const selectedOption = event.target.value;
-    const faceUrl = this.getFaceImage(selectedOption);
+    const faceUrl = await this.getFaceImage(selectedOption); // await를 사용하여 비동기 처리 기다림
+
+  
     this.setState({ selectedImage: faceUrl });
   };
+
   setDefaultImage() {
 
     const defaultImageUrl = camera; // 기본 이미지 URL을 설정해주세요.
@@ -84,12 +103,14 @@ class App extends Component {
         {time}
       </option>
     ));
+
     // facelist를 옵션으로 변환
     const faceListOptions = faceList.map((face, index) => (
       <option key={index} value={face}>
         {face}
       </option>
     ));
+
     // 현재시간 가져오기
     const today = new Date();
     // 날짜 지정
@@ -103,13 +124,13 @@ class App extends Component {
           <img src={logo} className="App-logo" alt="logo" />
         </div>
         <header className="App-header">
-          <div class="flex">
+          <div className="flex">
             <img src={selectedImage} className="image" alt="camera" /> {/* 선택된 이미지로 변경 */}
-            <div class="top-container">
+            <div className="top-container">
               <div>
-                <p class="log-title">인증로그</p>
+                <p className="log-title">인증로그</p>
               </div>
-              <select class="face-log" name="face-log" size="15" onChange={this.handleFaceListChange}>
+              <select className="face-log" name="face-log" size="15" onChange={this.handleFaceListChange}>
                 {faceListOptions}
               </select>
             </div>
@@ -131,7 +152,7 @@ class App extends Component {
           </div>
           <div className="setting-bar">
             <h2>출석현황</h2>
-            <a class="date-text">{formattedDate}</a>
+            <a className="date-text">{formattedDate}</a>
           </div>
           <Attendance classStartTime={this.state.classStartTime} />
         </header>
