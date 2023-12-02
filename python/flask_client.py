@@ -31,12 +31,24 @@ names = []
 MAX_RETRIES = 3
 RETRY_DELAY = 2  # seconds
 
+#디렉토리 생성
+dir_list= ['face_data', 'finger_prints', 'train_data', 'user_face', 'verified']
+for directory_name in dir_list:
+    try:
+        # 현재 작업 디렉토리에 새 디렉토리 생성
+        os.mkdir(directory_name)
+        print(f"디렉토리 '{directory_name}'가 생성되었습니다.")
+    except FileExistsError:
+        print(f"이미 '{directory_name}'라는 이름의 디렉토리가 있습니다.")
+    except OSError as error:
+        print(f"디렉토리 생성 중 오류 발생: {error}")
 
 for image_name in os.listdir(facePath):
     id = image_name.split(".")[0]
     names.append(int(id))
 
 names = list(set(names))  # 중복 제거, 정렬됨
+
 
 
 def read_files_by_student_id(directory, student_id):
