@@ -60,13 +60,16 @@
 
 
 
-## 메뉴 순서도 및 시스템 흐름도
+## 시스템 구성도
 
 ### 출석체크 시스템 메뉴 순서도
 ![메뉴순서도](https://github.com/JiminGod/WirelessNetwork/assets/129360388/ba9bad38-b3f0-4b2c-8557-312b6a5a4286)
 
 ### 시스템 흐름도
 ![287638540-5416a351-8d38-4ee0-a054-c3b77c3cc2e0](https://github.com/JiminGod/WirelessNetwork/assets/129360388/d318708f-15d1-402a-99c4-a66d37da4c3f)
+
+### 데이터베이스 ERD
+![287712317-b7b93319-c179-474f-b295-f3e2d5c83156](https://github.com/JiminGod/WirelessNetwork/assets/129360388/8cd9ad3b-a3bf-499d-9163-6d37ec1f68ff)
 
 
 ## 📜 참고자료
