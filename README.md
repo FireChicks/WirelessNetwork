@@ -54,9 +54,11 @@
 - 지문인식 시 인식된 주문과 비교하여 맞는지 확인 후 출석처
 
 ## 메뉴 순서도 및 시스템 흐름도
-![메뉴순서도](https://github.com/JiminGod/WirelessNetwork/assets/129360388/ba9bad38-b3f0-4b2c-8557-312b6a5a4286)
 
 ### 출석체크 시스템 메뉴 순서도
+![메뉴순서도](https://github.com/JiminGod/WirelessNetwork/assets/129360388/ba9bad38-b3f0-4b2c-8557-312b6a5a4286)
+
+### 시스템 흐름도
 ![287638540-5416a351-8d38-4ee0-a054-c3b77c3cc2e0](https://github.com/JiminGod/WirelessNetwork/assets/129360388/d318708f-15d1-402a-99c4-a66d37da4c3f)
 
 
