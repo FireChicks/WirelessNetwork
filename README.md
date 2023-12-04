@@ -49,25 +49,24 @@
 - 얼굴 촬영 후 등록된 데이터베이스의 얼굴과 비교 후 관리자에게 촬영한 얼굴과 가장 비슷한 얼굴을 확인을 하여 출석체크
 - 얼굴 인식이 힘들 시 지정되어있는 학번을 통해 로그인 하는 것도 가능
 
-### ⏳ 프로젝트 진행상황
-1. 참고자료 토대로 모델 학습(이미지 전처리) 진행 중
-2. 프론트엔드 UI 설계 완료
-3. 백엔드 erd 및 데이터베이스 생성
-4. 모델학습 진행 중 (2명의 사진으로 테스트 진행)
+### 👆 지문인식
+- 지문 등록 후 .dat파일로 저장 후 데이터베이스에 저장
+- 지문인식 시 인식된 주문과 비교하여 맞는지 확인 후 출석처
+
+## 메뉴 순서도 및 시스템 흐름도
+<br/>
+![메뉴순서도](https://github.com/JiminGod/WirelessNetwork/assets/129360388/ba9bad38-b3f0-4b2c-8557-312b6a5a4286)
+<br/>
+
+### 출석체크 시스템 메뉴 순서도
+<br/>
+![287638540-5416a351-8d38-4ee0-a054-c3b77c3cc2e0](https://github.com/JiminGod/WirelessNetwork/assets/129360388/d318708f-15d1-402a-99c4-a66d37da4c3f)
+<br/>
 
 
 ## 📜 참고자료
 - https://yunwoong.tistory.com/92
 - https://wondangcom.tistory.com/2446
-
-### 11/21 ~ 11/27 진행상황
-↓시스템 구성도 (라즈베리파이 / 백엔드)
-![ㄴㅁㅇㅇ](https://github.com/JiminGod/WirelessNetwork/assets/129360388/acdcba43-178a-4875-8cec-cf425714485e)
-<br/>
-
-<img width="526" alt="스크린샷 2023-11-27 오후 11 14 06" src="https://github.com/JiminGod/WirelessNetwork/assets/129360388/ee6786e6-cd9d-49b9-b3f4-29823c1f8c54">
-<img width="524" alt="스크린샷 2023-11-28 오전 12 06 00" src="https://github.com/JiminGod/WirelessNetwork/assets/129360388/39473399-4b8b-434d-ac6f-35192a41efb6">
-
 
 
 
