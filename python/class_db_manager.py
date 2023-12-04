@@ -21,7 +21,10 @@ def insert_class(class_code, class_name, prof_id):
 
             connection.commit()
             print(f'데이터베이스에 성공적으로 {class_name}의 수업을 입력 하였습니다.')
+            print('')
+            print(f'<-------------------------------------------------------------------->')
             print('주의) 출석을 실행하기전에 현재 존재하는 학생들의 모델학습을 업데이트하여야 합니다.')
+            print(f'<-------------------------------------------------------------------->')
             return True
         else:
             return False

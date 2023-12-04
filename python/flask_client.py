@@ -31,24 +31,12 @@ names = []
 MAX_RETRIES = 3
 RETRY_DELAY = 2  # seconds
 
-#디렉토리 생성
-dir_list= ['face_data', 'finger_prints', 'train_data', 'user_face', 'verified']
-for directory_name in dir_list:
-    try:
-        # 현재 작업 디렉토리에 새 디렉토리 생성
-        os.mkdir(directory_name)
-        print(f"디렉토리 '{directory_name}'가 생성되었습니다.")
-    except FileExistsError:
-        print(f"이미 '{directory_name}'라는 이름의 디렉토리가 있습니다.")
-    except OSError as error:
-        print(f"디렉토리 생성 중 오류 발생: {error}")
 
 for image_name in os.listdir(facePath):
     id = image_name.split(".")[0]
     names.append(int(id))
 
 names = list(set(names))  # 중복 제거, 정렬됨
-
 
 
 def read_files_by_student_id(directory, student_id):
@@ -363,6 +351,7 @@ while True:
             class_code = check_class()
             print("자동 얼굴인식을 실행합니다. (q키를 눌러서 종료 가능합니다.)")
             check_face_auto(class_code)
+            continue
         if s == "c":
             class_code = check_class()
             print("얼굴인식을 실행합니다.")
@@ -381,7 +370,7 @@ while True:
 
         elif s == "f":
             class_code = check_class()
-            stu_num = input('지문을 체크할 학번을 입력해주세요')
+            stu_num = input('지문을 체크할 학번을 입력해주세요 > ')
             student = stu_db_man.select_student(stu_num)
             if student == None:
                 continue
@@ -503,7 +492,7 @@ while True:
         elif s == 'c':
             prof_id = input('등록할 교수의 id를 입력해주세요 >')
             if pro_db_man.check_prof(prof_id):
-                class_code = check_class()
+                class_code = input('등록할 수업의 id를 입력해주세요 >')
                 class_name = input('등록할 수업의 이름을 입력해주세요 >')
 
                 cls_db_man.insert_class(class_code=class_code,
