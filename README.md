@@ -71,6 +71,7 @@
 ### 데이터베이스 ERD
 ![287712317-b7b93319-c179-474f-b295-f3e2d5c83156](https://github.com/JiminGod/WirelessNetwork/assets/129360388/8cd9ad3b-a3bf-499d-9163-6d37ec1f68ff)
 
+<img width="743" alt="스크린샷 2023-12-05 오전 10 45 04" src="https://github.com/JiminGod/WirelessNetwork/assets/69848839/1d86f51a-5b78-4071-98db-06860dc1debb">
 
 ## 📜 참고자료
 - https://yunwoong.tistory.com/92
